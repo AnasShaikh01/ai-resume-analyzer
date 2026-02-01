@@ -1,106 +1,109 @@
-# Hello
-# AI Resume Analyzer 📝
-The AI Resume Analyzer is an intelligent web-based tool designed to help job seekers evaluate and enhance their resumes by comparing them directly against a specific job description. Leveraging advanced AI models, this tool simulates how Applicant Tracking Systems (ATS) and recruiters assess your resume for relevance, alignment, and suitability for a role. Completely in a single Python file.
+AI Resume Analyzer 📝
 
-Watch our [Youtube Tutorial](https://youtu.be/XfoHr9GivCs) for a Demo and detailed explanation of installation steps and code.
+AI Resume Analyzer is a full-stack, AI-powered web application that helps job seekers evaluate and improve their resumes by comparing them against specific job descriptions.
+It simulates how Applicant Tracking Systems (ATS) and recruiters analyze resumes, providing structured scores, insights, and actionable feedback.
 
-## 🔍 What Does This Project Do?
-### 1. Resume Text Extraction
-Users upload their resumes in PDF format, and the system automatically extracts the raw text for further analysis.
+The project uses modern NLP models and a clean Flask + React (Vite) architecture for real-world scalability.
 
-### 2. Job Description Input
-The user provides the job description for the position they are targeting. This sets the criteria against which the resume will be evaluated.
+🚀 Key Features
+📄 Resume Text Extraction
 
-### 3. ATS Similarity Score
-Using Sentence Transformers (BERT-based model), the tool calculates a similarity score between the resume and the job description. This score reflects how well the resume matches keywords, context, and requirements typically scanned by ATS software.
+Upload resumes in PDF format
 
-### 4. AI-Powered Resume Evaluation
-With the help of Groq's Llama-based LLM, the tool generates a detailed, human-readable evaluation report. The AI analyzes various factors such as skills, experience, and qualifications, assigning a score (out of 5) for each aspect and using emojis (✅, ❌, ⚠️) to quickly highlight strengths and gaps.
+Automatically extracts and preprocesses resume text
 
-### 5. Actionable Feedback
-The AI not only scores your resume but also provides personalized suggestions on how to improve it, helping candidates refine their applications before submission.
+🧾 Job Description Matching
 
-### 6. Downloadable Report
-Users can easily download the detailed analysis for reference, making it convenient to track and implement the suggested changes.
+Compare a resume against one or multiple job descriptions
 
+Tailored analysis for each role
 
----
+📊 ATS Similarity Scoring
 
-### 🎯 **Why Use This Tool?**
+Uses Sentence Transformers (all-mpnet-base-v2)
 
-- **Optimize for ATS**: Understand how your resume fares in automated screenings.
-- **Get AI Insights**: Receive professional-quality feedback without hiring a consultant.
-- **Improve Success Rate**: Apply data-driven improvements to increase your chances of getting shortlisted.
+Computes semantic similarity between resume and job description
 
+Reflects ATS-style keyword & context matching
 
-This project is perfect for job seekers who want to make sure their resumes are tailored to specific roles, career coaches looking for efficient feedback tools, or developers seeking to explore AI’s capabilities in HR-tech workflows.
+🤖 AI-Powered Resume Evaluation
 
+Powered by Groq LLM (LLaMA-based model)
 
-# ⚙️ Installation Steps
+Evaluates skills, experience, relevance, and alignment
 
-Follow these steps to set up and run the **AI Resume Analyzer** locally:
+Provides section-wise scoring and explanations
 
+🧠 Actionable Feedback
 
-Make sure you have Python and Git installed.
+Highlights strengths and gaps
 
-### 1️⃣ **Clone the Repository**
+Suggests improvements to increase shortlisting chances
 
-```bash
-git clone https://github.com/Altoks-AI/AI-Resume-Analyzer.git
-```
-```
-cd FolderName
-```
+📥 Downloadable PDF Report
 
-### 2️⃣ Set Up a Virtual Environment
-```
-python -m venv myenv
-```
-```
-./myenv/Scripts/activate
-```
+Generate and download a detailed resume analysis report
 
-### 3️⃣ Install Dependencies
-Make sure you have pip updated, then install all required packages:
-```
-pip install -r requirements.txt
-```
+Useful for tracking improvements over time
 
-### 4️⃣ Set Up Your .env File
-Create a .env file in the root directory and add your Groq API key from [Groq](https://groq.com/) 
+🛠 Tech Stack
+Backend
 
-```
-GROQ_API_KEY=your_groq_api_key_here
-```
+Flask
 
-### 5️⃣ Run the Streamlit App
-Launch the app locally using Streamlit:
-```
-streamlit run main.py
-```
-### 6️⃣ Open in Browser
-Once the app starts, it will automatically open in your default web browser at:
-```
-http://localhost:8501
-```
----
-✅ Now you’re all set!
-Upload a resume, paste a job description, and let the AI analyze your resume for job-fit and provide suggestions. 
+Sentence Transformers
 
-## Possible Changes you may want to make:
+Groq LLM API
 
-- Change the prompt in main.py file to get the results in the way you want.
-- Embedding Model is "sentence-transformers/all-mpnet-base-v2" ,Change to the model you desire (Ex: BERT, SBERT,etc)
-- Currently using Groq API and LLM model is "llama-3.3-70b-versatile", Change is model is removed or use other API's like OpenAI-GPT-4o model.
-- Change the Title, Labels and other names and display formats according to your liking.
+NumPy, Pandas, Scikit-learn
 
+PDF Processing & Report Generation
 
-## Contact us :
+Frontend
 
-- Join our [Discord Community](https://discord.com/invite/qbhACtUB)
-- Our Company Website: [Altoks AI]( https://altoks.vercel.app/)
+React
 
-🔗 Follow us everywhere:
-- [Linkedin](https://www.linkedin.com/in/altoks-ai/)
-- [Instagram](https://www.instagram.com/altoks_ai/)
-- [X (Twitter)](https://x.com/Altoks_AI)
+Vite
+
+Modern UI with API-based integration
+
+⚙️ Installation & Setup (Local)
+✅ Prerequisites
+
+Make sure you have:
+
+Python 3.11
+
+Node.js (LTS)
+
+Git
+
+🎯 Why Use This Tool?
+
+ATS Optimization – Understand how automated systems read your resume
+
+AI-Driven Feedback – Get structured insights without hiring a consultant
+
+Role-Specific Analysis – Customize your resume per job description
+
+End-to-End Workflow – Upload → Analyze → Improve → Download report
+
+This project is ideal for:
+
+Job seekers
+
+Career coaches
+
+HR-Tech research & academic projects
+
+Developers exploring AI-driven document analysis
+
+🔧 Customization Options
+
+Change the embedding model (all-mpnet-base-v2)
+
+Modify the LLM prompt for different evaluation styles
+
+Replace Groq API with another LLM provider if required
+
+Customize UI labels, scores, and report formats
