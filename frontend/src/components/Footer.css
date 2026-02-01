@@ -1,0 +1,14 @@
+/* src/components/Footer.css */
+
+.footer {
+  margin-top: 4rem;
+  padding: 1.4rem;
+  text-align: center;
+  color: #475569;
+  font-size: 0.9rem;
+}
+
+.footer span {
+  font-weight: 600;
+  color: var(--primary-color);
+}

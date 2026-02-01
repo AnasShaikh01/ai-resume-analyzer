@@ -1,0 +1,247 @@
+/* ===============================
+   FORM BASE
+================================ */
+.analysis-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.4rem;
+}
+
+.form-heading {
+  font-size: 1.3rem;
+  font-weight: 600;
+  text-align: center;
+  color: #111827;
+}
+
+/* ===============================
+   FILE UPLOAD
+================================ */
+.file-upload-box {
+  position: relative;
+  border: 1.5px dashed #cbd5e1;
+  background: #f9fafb;
+  border-radius: 12px;
+  padding: 2rem 1rem;
+  text-align: center;
+  cursor: pointer;
+}
+
+.file-input {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+/* ===============================
+   JD SECTION
+================================ */
+.jd-section {
+  display: flex;
+  flex-direction: column;
+  gap: 1.4rem;
+}
+
+.jd-card {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 1rem;
+}
+
+/* ===============================
+   JD HEADER
+================================ */
+.jd-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.6rem;
+}
+
+.jd-title {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #111827;
+}
+
+/* ===============================
+   REMOVE BUTTON (FINAL, CLEAN)
+================================ */
+.jd-section .remove-jd-text {
+  background: none !important;
+  border: none !important;
+  padding: 0 !important;
+
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: #6b7280;
+
+  cursor: pointer;
+}
+
+/* Hover / focus / active — subtle & visible */
+.jd-section .remove-jd-text:hover,
+.jd-section .remove-jd-text:focus,
+.jd-section .remove-jd-text:active {
+  background: none !important;
+  border: none !important;
+  color: #111827 !important;
+  text-decoration: underline;
+
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+/* ===============================
+   TEXTAREA (PROFESSIONAL)
+================================ */
+.jd-textarea {
+  width: 100%;
+  min-height: 120px;
+  resize: vertical;
+
+  background: #ffffff;
+  border: 1.5px solid #e5e7eb;
+  border-radius: 10px;
+
+  padding: 0.9rem;
+  font-size: 0.95rem;
+  line-height: 1.55;
+  color: #111827;
+
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.jd-textarea:focus {
+  outline: none;
+  border-color: #4F46E5;
+  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.12);
+}
+
+.jd-textarea::placeholder {
+  color: #9ca3af;
+}
+
+/* ===============================
+   ADD JD BUTTON (LOCKED STYLE)
+================================ */
+.jd-section .add-jd-btn {
+  align-self: flex-start;
+
+  background: transparent !important;
+  border: 1px solid #d4d8ff !important;
+  color: #4F46E5 !important;
+
+  padding: 0.5rem 0.9rem;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+
+/* Hover / focus / active — EXACT SAME LOOK */
+.jd-section .add-jd-btn:hover,
+.jd-section .add-jd-btn:focus,
+.jd-section .add-jd-btn:active {
+  background: transparent !important;
+  color: #4F46E5 !important;
+  border-color: #d4d8ff !important;
+
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+/* ===============================
+   ANALYZE BUTTON (PRIMARY CTA)
+   ONLY FOR ANALYZE RESUME
+================================ */
+.analyze-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 0.85rem 1.2rem;
+  border-radius: 12px;
+  border: none;
+
+  font-size: 1.05rem;
+  font-weight: 600;
+  font-family: var(--font-heading);
+
+  color: #ffffff;
+  background: linear-gradient(
+    135deg,
+    var(--primary-color),
+    var(--accent-color)
+  );
+
+  box-shadow: 0 10px 25px rgba(37, 99, 235, 0.35);
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* Hover – subtle lift */
+.analyze-btn:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 14px 30px rgba(37, 99, 235, 0.45);
+}
+
+/* Disabled / loading state */
+.analyze-btn:disabled {
+  background: linear-gradient(
+    135deg,
+    #9ca3af,
+    #9ca3af
+  );
+  box-shadow: none;
+  cursor: not-allowed;
+  transform: none;
+}
+
+
+/* ===============================
+   ERROR
+================================ */
+.error {
+  color: #dc2626;
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+/* Uploaded file preview */
+.uploaded-file {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  background: #f8fafc;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  padding: 0.7rem 0.9rem;
+}
+
+.file-icon {
+  font-size: 1.2rem;
+}
+
+.file-name {
+  flex: 1;
+  font-size: 0.9rem;
+  color: #111827;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Remove uploaded file */
+.remove-file-btn {
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  color: #6b7280;
+  cursor: pointer;
+}
+
+.remove-file-btn:hover {
+  color: #111827;
+}

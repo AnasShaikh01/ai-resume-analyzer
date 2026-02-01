@@ -1,0 +1,426 @@
+/* ================================================= */
+/* Results Page Layout                               */
+/* ================================================= */
+
+.results-page {
+  max-width: 1100px;
+  margin: auto;
+  padding: 60px 20px;
+}
+
+.results-page h2 {
+  font-size: 1.6rem;
+}
+
+.results-page h3 {
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+.results-page p {
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+.results-header {
+  margin-bottom: 32px;
+}
+
+.results-header p {
+  color: var(--text-light);
+}
+
+/* ================================================= */
+/* Expander (KEEP AS PROVIDED)                       */
+/* ================================================= */
+
+.expander {
+  background: var(--surface-color);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow);
+  margin-bottom: 20px;
+  overflow: hidden;
+}
+
+.expander-header {
+  width: 100%;
+  background-color: var(--surface-color);
+  color: var(--text-color);
+  border-bottom: 1px solid #E5E7EB;
+  padding: 18px 22px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+/* Disable ALL hover / focus effects */
+.expander-header:hover,
+.expander-header:focus,
+.expander-header:active {
+  background-color: var(--surface-color) !important;
+  color: var(--text-color) !important;
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+.expander-content {
+  padding: 32px 28px;
+}
+
+/* Give breathing space to content inside expanders */
+.expander-content > * {
+  margin-top: 12px;
+}
+
+.rotate {
+  transform: rotate(180deg);
+}
+
+/* ================================================= */
+/* Resume Score – Horizontal Summary                 */
+/* ================================================= */
+
+.score-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 32px;
+}
+
+.score-item {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.score-ring {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  border: 6px solid;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 0.95rem;
+}
+
+.score-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.score-label {
+  color: var(--text-light);
+  font-size: 0.95rem;
+}
+
+.score-value {
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+
+@media (max-width: 768px) {
+  .score-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+  }
+}
+
+/* ================================================= */
+/* ATS Compliance                                   */
+/* ================================================= */
+
+.ats-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+}
+
+.ats-card {
+  display: flex;
+  gap: 14px;
+  padding: 18px;
+  border-radius: 14px;
+  background: var(--bg-color);
+}
+
+.ats-icon {
+  font-size: 1.4rem;
+  line-height: 1;
+}
+
+.ats-text h4 {
+  margin-bottom: 4px;
+  font-size: 1rem;
+}
+
+.ats-text p {
+  font-size: 0.9rem;
+  color: var(--text-light);
+}
+
+.ats-card.ats-ok {
+  border-left: 4px solid var(--success-color);
+}
+
+.ats-card.ats-issue {
+  border-left: 4px solid #F59E0B;
+}
+
+/* ================================================= */
+/* Keyword Gap Analysis                              */
+/* ================================================= */
+
+.keyword-gap {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.kg-section {
+  background: var(--surface-color);
+  padding: 24px;
+  border-radius: 18px;
+  box-shadow: var(--shadow);
+}
+
+.kg-hint {
+  font-size: 0.95rem;
+  color: var(--text-light);
+  margin-bottom: 16px;
+}
+
+/* Success state */
+.success-box {
+  background: rgba(16, 185, 129, 0.15);
+  color: var(--success-color);
+  padding: 16px;
+  border-radius: 14px;
+  font-weight: 500;
+}
+
+/* Missing skills grid */
+.missing-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+}
+
+.missing-skill-card {
+  background: linear-gradient(
+    to right,
+    rgba(239, 68, 68, 0.08),
+    var(--bg-color)
+  );
+  border: 1px solid rgba(239, 68, 68, 0.25);
+  border-radius: 16px;
+  padding: 18px;
+}
+
+.missing-skill-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.missing-skill-name {
+  font-size: 1.05rem;
+  font-weight: 600;
+}
+
+/* Learn resources button */
+.learn-toggle {
+  background: rgba(37, 99, 235, 0.12);
+  border: none;
+  padding: 8px 14px;
+  border-radius: 10px;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+.learn-toggle:hover {
+  background: rgba(37, 99, 235, 0.18);
+}
+
+/* Learning resources */
+.learning-list {
+  margin-top: 14px;
+  padding-left: 18px;
+}
+
+.learning-list li {
+  font-size: 0.95rem;
+  margin-bottom: 8px;
+}
+
+/* Skill badges */
+.skill-chip-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.skill-chip {
+  padding: 12px 18px;
+  border-radius: 14px;
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.skill-chip.match {
+  background: rgba(16, 185, 129, 0.2);
+  color: var(--success-color);
+}
+
+.skill-chip.extra {
+  background: #EEF2F7;
+  color: var(--text-light);
+}
+
+
+/* ================================================= */
+/* AI Feedback – Proper Formatting                   */
+/* ================================================= */
+
+.ai-feedback {
+  background: var(--bg-color);
+  padding: 28px;
+  border-radius: 16px;
+}
+
+/* Section headings */
+.ai-heading {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin: 20px 0 10px;
+  color: var(--text-color);
+}
+
+/* Normal paragraphs */
+.ai-paragraph {
+  font-size: 0.95rem;
+  line-height: 1.7;
+  margin-bottom: 12px;
+  color: var(--text-color);
+}
+
+/* Bullet points */
+.ai-bullet {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  margin-left: 20px;
+  margin-bottom: 8px;
+  color: var(--text-color);
+}
+
+/* Group bullets visually */
+.ai-bullet::marker {
+  color: var(--primary-color);
+}
+
+/* ================================================= */
+/* Download Report – Clean CTA                       */
+/* ================================================= */
+
+.download-report {
+  margin-top: 40px;
+  padding: 28px;
+  border-radius: 18px;
+  background: var(--surface-color);
+  box-shadow: var(--shadow);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.download-report h3 {
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+/* Button */
+.download-btn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 26px;
+  border-radius: 14px;
+  font-size: 1rem;
+  font-weight: 600;
+  background: linear-gradient(
+    135deg,
+    var(--primary-color),
+    var(--accent-color)
+  );
+  color: #fff;
+  box-shadow: 0 12px 28px rgba(37, 99, 235, 0.25);
+  transition: var(--transition);
+}
+
+.download-btn:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 16px 36px rgba(37, 99, 235, 0.35);
+}
+
+.download-btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+
+/* ================================================= */
+/* JD Tabs – Styled like Download PDF Button         */
+/* ================================================= */
+
+.jd-tabs {
+  display: flex;
+  gap: 14px;                 /* 👈 spacing between tabs */
+  margin-bottom: 32px;
+  flex-wrap: wrap;
+}
+
+.jd-tab {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 10px 22px;
+  border-radius: 999px;
+  border: none;
+
+  font-size: 0.95rem;
+  font-weight: 600;
+  font-family: var(--font-heading);
+
+  background: #eef2ff;
+  color: var(--primary-color);
+
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.jd-tab:hover {
+  color: #ffffff !important;
+}
+
+.jd-tab.active:hover {
+  color: #ffffff !important;
+}
+
+/* Active tab = Download PDF styling */
+.jd-tab.active {
+  background: linear-gradient(
+    135deg,
+    var(--primary-color),
+    var(--accent-color)
+  );
+  color: #ffffff;
+  box-shadow: 0 10px 25px rgba(37, 99, 235, 0.35);
+}

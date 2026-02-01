@@ -1,0 +1,115 @@
+/* ---------------------------- */
+/*  FONTS                      */
+/* ---------------------------- */
+@import url('https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700&display=swap');
+/* ---------------------------- */
+/*  ROOT VARIABLES             */
+/* ---------------------------- */
+:root {
+  --font-heading: 'Inter', sans-serif;
+  --font-body: 'Satoshi', sans-serif;
+
+  --primary-color: #2563EB;
+  --primary-dark: #1E40AF;
+  --accent-color: #0EA5E9;
+
+  --bg-color: #F8FAFC;
+  --surface-color: #FFFFFF;
+
+  --text-color: #0F172A;
+  --text-light: #475569;
+
+  --error-color: #EF4444;
+  --success-color: #10B981;
+
+  --border-radius: 16px;
+  --shadow: 0 20px 45px rgba(15, 23, 42, 0.08);
+  --transition: all 0.2s ease;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--bg-color);
+  color: var(--text-color);
+}
+
+/* ---------------------------- */
+/*  RESET                      */
+/* ---------------------------- */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* ---------------------------- */
+/*  GLOBAL                     */
+/* ---------------------------- */
+body {
+  font-family: var(--font-body);
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  min-height: 100vh;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Headings */
+h1, h2, h3, h4, h5 {
+  font-family: var(--font-heading);
+  color: var(--text-color);
+  letter-spacing: -0.2px;
+}
+
+/* Links */
+a {
+  color: var(--primary-color);
+  text-decoration: none;
+  transition: var(--transition);
+}
+
+a:hover {
+  color: var(--primary-dark);
+}
+
+/* Buttons */
+button {
+  border-radius: var(--border-radius);
+  border: none;
+  padding: 0.6em 1.2em;
+  font-size: 1rem;
+  font-weight: 500;
+  font-family: var(--font-heading);
+  background-color: var(--primary-color);
+  color: var(--surface-color);
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+button:hover:not(:disabled) {
+  background-color: var(--primary-dark);
+  transform: scale(1.02);
+}
+
+button:disabled {
+  background-color: #93C5FD;
+  cursor: not-allowed;
+}
+
+/* ---------------------------- */
+/*  BODY LAYOUT                */
+/* ---------------------------- */
+/* ❌ Remove the flex layout you earlier added, because it breaks hero layouts */
+
+body {
+  display: block;
+  padding: 0;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  body {
+    padding: 0;
+  }
+}

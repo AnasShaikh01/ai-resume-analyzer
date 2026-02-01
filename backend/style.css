@@ -1,0 +1,118 @@
+/* Global styles */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #fafafa;
+    color: #333;
+}
+
+/* Resume Score Circles */
+.score-row {
+    display: flex;
+    gap: 2rem;
+    margin: 1.0rem 0 1.5rem 0;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.score-card {
+    text-align: center;
+    min-width: 120px;
+}
+
+.score-card .circle {
+    width: 88px;
+    height: 88px;
+    border-radius: 50%;
+    line-height: 88px;
+    font-size: 1.4rem;
+    font-weight: bold;
+    margin: 0 auto 0.5rem auto;
+    border: 6px solid;
+    background: #fff;
+}
+
+.score-card.overall .circle {
+    border-color: #f39c12;
+    color: #f39c12;
+}
+
+.score-card.requirements .circle {
+    border-color: #27ae60;
+    color: #27ae60;
+}
+
+.score-card.keywords .circle {
+    border-color: #c0392b;
+    color: #c0392b;
+}
+
+.score-card .label {
+    font-weight: 600;
+    font-size: 0.95rem;
+}
+
+/* Skill tags */
+.scroll-container {
+    overflow-x: auto;
+    padding: 0.3rem 0;
+}
+
+.matching-skill {
+    background-color: #d1e7dd;
+    color: #0f5132;
+    border-radius: 12px;
+    padding: 4px 10px;
+    margin: 3px;
+    display: inline-block;
+    font-size: 0.9rem;
+}
+
+.missing-skill {
+    background-color: #f8d7da;
+    color: #842029;
+    border-radius: 12px;
+    padding: 4px 10px;
+    margin: 3px;
+    display: inline-block;
+    font-size: 0.9rem;
+}
+
+.extra-skill {
+    background-color: #fff3cd;
+    color: #664d03;
+    border-radius: 12px;
+    padding: 4px 10px;
+    margin: 3px;
+    display: inline-block;
+    font-size: 0.9rem;
+}
+
+/* AI report block */
+.ai-report {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f9f9f9;
+    padding: 15px;
+    border-radius: 8px;
+    white-space: pre-wrap;
+    line-height: 1.5;
+    color: #333;
+    border: 1px solid #ddd;
+}
+
+
+/* Buttons */
+.stButton>button {
+    background-color: #0078d7;
+    color: white;
+    font-weight: 600;
+    padding: 0.6rem 1.5rem;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+}
+
+.stButton>button:hover {
+    background-color: #005a9e;
+}
