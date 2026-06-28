@@ -10,7 +10,10 @@ from flask_cors import CORS
 from resume_analyzer.reporting import generate_pdf_report
 from resume_analyzer.analysis import analyze_resume_against_jd
 from resume_analyzer.extraction import check_ats_compliance, load_skills
-from resume_analyzer.processing import extract_text_from_file, preprocess
+from resume_analyzer.processing import (
+    extract_text_from_file,
+    preprocess_resume
+)
 from resume_analyzer.utils import load_bert_model
 
 # -------------------- App Initialization --------------------
@@ -73,7 +76,7 @@ def analyze_resume_endpoint():
 
     # Resume processing
     raw_resume = extract_text_from_file(file_bytes, resume_file.filename)
-    resume_text = preprocess(raw_resume)
+    resume_text = preprocess_resume(raw_resume)
 
     # ATS & skills
     ats_compliance = check_ats_compliance(file_bytes, file_ext)
@@ -85,7 +88,7 @@ def analyze_resume_endpoint():
         if jd and jd.strip():
             result = analyze_resume_against_jd(
                 bert_model,
-                resume_text,
+                raw_resume,
                 jd,
                 all_skills,
                 GROQ_API_KEY

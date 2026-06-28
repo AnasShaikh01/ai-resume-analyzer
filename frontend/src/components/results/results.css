@@ -424,3 +424,15 @@
   color: #ffffff;
   box-shadow: 0 10px 25px rgba(37, 99, 235, 0.35);
 }
+
+.match-card {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.skill-location {
+  font-size: 0.85rem;
+  color: var(--text-light);
+  margin-top: 4px;
+}

@@ -44,9 +44,9 @@ const MissingSkillCard = ({ skill, learningSuggestions }) => {
 
 /* Main component */
 const KeywordGapAnalysis = ({
-  matching_skills = [],
+  matched_skills = [],
   missing_skills = [],
-  extra_skills = [],
+  additional_skills = [],
   learning_suggestions = {}
 }) => {
   return (
@@ -76,16 +76,119 @@ const KeywordGapAnalysis = ({
         )}
       </section>
 
-      {/* ✅ Matching Skills */}
+      {/* <section className="kg-section">
+        <h3>✅ Direct Matches</h3>
+
+        <div className="skill-chip-group">
+          {exact_matches.length > 0 ? (
+            exact_matches.map((skill) => {
+
+            const location = matched_skill_locations?.[skill];
+
+            return (
+              <div
+                key={skill}
+                className="match-card"
+              >
+                <SkillChip
+                  skill={skill}
+                  type="match"
+                />
+
+                {location && (
+                  <p className="skill-location">
+                    📍 {location.sections.join(" • ")}
+                  </p>
+                )}
+              </div>
+            );
+          })
+          ) : (
+            <p className="empty-text">
+              No direct matches found.
+            </p>
+          )}
+        </div>
+      </section>
+
+      <section className="kg-section">
+        <h3>🔗 Related Matches</h3>
+
+        {related_matches.length > 0 ? (
+          related_matches.map((match, idx) => (
+            <div
+              key={idx}
+              className="related-match-card"
+            >
+              <strong>
+                {match.jd_skill}
+              </strong>
+
+              {" "}via{" "}
+
+              <strong>{match.resume_skill}</strong>
+
+              <p className="skill-location">
+                📍 {
+                  matched_skill_locations?.[
+                    match.resume_skill
+                  ]?.sections.join(" • ")
+                }
+              </p>
+            </div>
+          ))
+        ) : (
+          <p className="empty-text">
+            No related matches found.
+          </p>
+        )}
+      </section>
+
+      <section className="kg-section">
+        <h3>🧠 Semantic Matches</h3>
+
+        {semantic_matches.length > 0 ? (
+          semantic_matches.map((match, idx) => (
+            <div
+              key={idx}
+              className="semantic-match-card"
+            >
+              <strong>
+                {match.jd_skill}
+              </strong>
+
+              {" "}via{" "}
+
+              <strong>
+                {match.resume_skill}
+              </strong>
+
+              {" "}({match.score})
+            </div>
+          ))
+        ) : (
+          <p className="empty-text">
+            No semantic matches found.
+          </p>
+        )}
+      </section> */}
+
       <section className="kg-section">
         <h3>✅ Matching Skills</h3>
+
         <div className="skill-chip-group">
-          {matching_skills.length > 0 ? (
-            matching_skills.map((skill) => (
-              <SkillChip key={skill} skill={skill} type="match" />
+          {matched_skills.length > 0 ? (
+            matched_skills.map((skill) => (
+              <SkillChip
+                key={skill}
+                skill={skill}
+                type="match"
+              />
             ))
           ) : (
-            <p className="empty-text">No matching skills found.</p>
+            <p className="empty-text">
+              No matching skills found.
+            </p>
           )}
         </div>
       </section>
@@ -98,8 +201,8 @@ const KeywordGapAnalysis = ({
         </p>
 
         <div className="skill-chip-group">
-          {extra_skills.slice(0, 8).length > 0 ? (
-            extra_skills.slice(0, 8).map((skill) => (
+          {additional_skills.slice(0, 8).length > 0 ? (
+            additional_skills.slice(0, 8).map((skill) => (
               <SkillChip key={skill} skill={skill} type="extra" />
             ))
           ) : (

@@ -10,15 +10,12 @@ const AnalysisReport = ({ result }) => {
   if (!result) return null;
 
   const {
-    overall_score,
-    requirements_score,
-    keywords_score,
-    matching_skills,
-    missing_skills,
-    extra_skills,
-    ats_compliance,
-    ai_raw,
-  } = result;
+  overall_score,
+  requirements_score,
+  keywords_score,
+  ats_compliance,
+  ai_raw,
+} = result;
 
   return (
     <>
@@ -36,9 +33,10 @@ const AnalysisReport = ({ result }) => {
 
       <Expander title="📌 Keyword Gap Analysis">
         <KeywordGapAnalysis
-          matching_skills={matching_skills}
-          missing_skills={missing_skills}
-          extra_skills={extra_skills}
+          matched_skills={result.matched_skills}
+          missing_skills={result.missing_skills}
+          additional_skills={result.additional_skills}
+          learning_suggestions={result.learning_suggestions}
         />
       </Expander>
 

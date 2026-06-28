@@ -125,12 +125,59 @@ def show_results(api_key):
             st.progress(match_percent / 100)
             st.info(f"✅ Matching: {len(matching)} | ⚠ Missing: {len(missing)} | 💡 Extra: {len(extra)}")
 
-            with st.expander("✅ Matching Skills"):
-                if matching:
-                    st.markdown(" ".join([f"<span class='matching-skill'>{s}</span>" for s in matching]), unsafe_allow_html=True)
+            with st.expander("✅ Direct Matches"):
+                exact_matches = res.get(
+                    "exact_matches",
+                    []
+                )
+                if exact_matches:
+                    st.markdown(
+                        " ".join(
+                            [
+                                f"<span class='matching-skill'>{s}</span>"
+                                for s in exact_matches
+                            ]
+                        ),
+                        unsafe_allow_html=True
+                    )
                 else:
-                    st.write("No skills from the job description were found in your resume.")
+                    st.write(
+                        "No direct matches found."
+                    )
 
+            with st.expander("🔗 Related Matches"):
+                related_matches = res.get(
+                    "related_matches",
+                    []
+                )
+                if related_matches:
+                    for match in related_matches:
+                        st.success(
+                            f"{match['jd_skill']} "
+                            f"(via {match['resume_skill']})"
+                        )
+                else:
+                    st.write(
+                        "No related matches found."
+                    )
+
+            with st.expander("🧠 Semantic Matches"):
+                semantic_matches = res.get(
+                    "semantic_matches",
+                    []
+                )
+                if semantic_matches:
+                    for match in semantic_matches:
+                        st.info(
+                            f"{match['jd_skill']} "
+                            f"(via {match['resume_skill']}) "
+                            f"[Score: {match['score']}]"
+                        )
+                else:
+                    st.write(
+                        "No semantic matches found."
+                    )
+                    
             with st.expander("⚠ Missing Skills"):
                 if missing:
                     for s in missing:

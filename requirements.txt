@@ -13,3 +13,4 @@ uvicorn[standard]
 python-multipart
 flask
 flask-cors
+spacy==3.8.2

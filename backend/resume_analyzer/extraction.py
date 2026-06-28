@@ -1,142 +1,267 @@
 import io
 import re
 import os
+
 import docx
 import fitz  # PyMuPDF
 import pandas as pd
 
+from .skill_extractor import SkillExtractor
+from .resume_section_parser import ResumeSectionParser
+
+# ==========================================================
+# Skill Loading
+# ==========================================================
+
 def load_skills(csv_path="skills.csv"):
     """
     Loads skills from CSV.
-    - If CSV has one column → returns list of skills.
-    - If CSV has two columns (skill, alias) → returns dict {canonical: [aliases]}.
+
+    Supported formats:
+
+    1 Column:
+        Python
+        Java
+        SQL
+
+    2 Columns:
+        python,py
+        javascript,js
+
+    Returns:
+        list OR dict
     """
-    # Construct an absolute path to skills.csv relative to this file's location
-    # This ensures it's found regardless of where the app is run from.
+
     current_dir = os.path.dirname(os.path.abspath(__file__))
-    absolute_csv_path = os.path.join(current_dir, '..', '..', csv_path)
+
+    absolute_csv_path = os.path.join(
+        current_dir,
+        "..",
+        "..",
+        csv_path
+    )
+
     try:
         df = pd.read_csv(absolute_csv_path, header=None)
-    except FileNotFoundError:
-        return [] # Return empty list if skills.csv is not found
 
-    if df.shape[1] == 1:
-        # Single-column → simple list
-        return [skill.lower().strip() for skill in df[0].dropna().tolist()]
-    elif df.shape[1] >= 2:
-        # Two-column → dict with aliases
-        skills_dict = {}
-        for _, row in df.iterrows():
-            canonical = str(row[0]).strip().lower()
-            alias = str(row[1]).strip().lower()
-            if canonical:
-                if canonical not in skills_dict:
-                    skills_dict[canonical] = []
-                if alias and alias not in skills_dict[canonical]:
-                    skills_dict[canonical].append(alias)
-        return skills_dict
-    else:
+    except FileNotFoundError:
         return []
 
+    # Single-column skills
+    if df.shape[1] == 1:
+
+        return [
+            str(skill).strip().lower()
+            for skill in df[0].dropna().tolist()
+        ]
+
+    # Canonical + aliases
+    elif df.shape[1] >= 2:
+
+        skills_dict = {}
+
+        for _, row in df.iterrows():
+
+            canonical = str(row[0]).strip().lower()
+
+            alias = ""
+
+            if pd.notna(row[1]):
+                alias = str(row[1]).strip().lower()
+
+            if canonical:
+
+                if canonical not in skills_dict:
+                    skills_dict[canonical] = []
+
+                if alias and alias not in skills_dict[canonical]:
+                    skills_dict[canonical].append(alias)
+
+        return skills_dict
+
+    return []
+
+
+# ==========================================================
+# NLP Skill Extraction
+# ==========================================================
+
+_skill_extractor_cache = {}
+_section_parser = ResumeSectionParser()
+
+
 def extract_skills(text, skills_source):
+
+    cache_key = str(id(skills_source))
+    if cache_key not in _skill_extractor_cache:
+        _skill_extractor_cache[cache_key] = SkillExtractor(
+            skills_source
+        )
+    return _skill_extractor_cache[
+        cache_key
+    ].extract(text)
+
+def extract_skills_with_context(text, skills_source):
+
+    cache_key = str(id(skills_source))
+    if cache_key not in _skill_extractor_cache:
+        _skill_extractor_cache[cache_key] = SkillExtractor(
+            skills_source
+        )
+    return _skill_extractor_cache[
+        cache_key
+    ].extract_with_context(text)
+
+def parse_resume_sections(text):
     """
-    Extracts skills from text.
-    - Works with list (simple skills).
-    - Works with dict (canonical + aliases).
+    Parse resume into sections.
+
+    Returns:
+    {
+        "skills": "...",
+        "projects": "...",
+        "experience": "...",
+        ...
+    }
     """
-    text = text.lower()
-    found = set()
 
-    if isinstance(skills_source, list):
-        for skill in skills_source:
-            pattern = r'\b' + re.escape(skill) + r'\b'
-            if re.search(pattern, text):
-                found.add(skill)
+    return _section_parser.parse(text)
 
-    elif isinstance(skills_source, dict):
-        for canonical, aliases in skills_source.items():
-            all_terms = [canonical] + aliases
-            for term in all_terms:
-                pattern = r'\b' + re.escape(term) + r'\b'
-                if re.search(pattern, text):
-                    found.add(canonical)  # always return canonical
-                    break
 
-    return list(found)
-
+# ==========================================================
+# ATS Utilities
+# ==========================================================
 
 def _normalize_font_name(name: str) -> str:
-    """Clean up PDF font names like 'AAAAAA+Calibri-Bold' -> 'Calibri'."""
+    """
+    Example:
+    AAAAAA+Calibri-Bold -> Calibri
+    """
     if not name:
         return ""
-    name = name.split("+")[-1]  # remove prefix
-    name = re.sub(r"[- ]?(Bold|Italic|Oblique|Regular)$", "", name, flags=re.IGNORECASE)
+    name = name.split("+")[-1]
+    name = re.sub(
+        r"[- ]?(Bold|Italic|Oblique|Regular)$",
+        "",
+        name,
+        flags=re.IGNORECASE
+    )
     return name.strip()
 
-def _detect_multi_column(page) -> bool:
-    """Detect if a PDF page is multi-column using clustering of x positions."""
-    blocks = page.get_text("blocks")
-    if not blocks or len(blocks) < 10: return False
 
+def _detect_multi_column(page) -> bool:
+    """
+    Detect if PDF page contains multiple columns.
+    """
+    blocks = page.get_text("blocks")
+    if not blocks or len(blocks) < 10:
+        return False
     x_positions = [b[0] for b in blocks]
-    clustered = [round(x / 20) * 20 for x in x_positions]
+    clustered = [
+        round(x / 20) * 20
+        for x in x_positions
+    ]
     cluster_counts = {}
+
     for c in clustered:
         cluster_counts[c] = cluster_counts.get(c, 0) + 1
-
-    sorted_clusters = sorted(cluster_counts.items(), key=lambda x: -x[1])
+    sorted_clusters = sorted(
+        cluster_counts.items(),
+        key=lambda x: -x[1]
+    )
 
     if len(sorted_clusters) >= 2:
-        (x1, count1), (x2, count2) = sorted_clusters[0], sorted_clusters[1]
+        (x1, count1), (x2, count2) = sorted_clusters[:2]
         distance = abs(x1 - x2)
-        if distance > page.rect.width * 0.35 and count1 > 5 and count2 > 5:
+        if (
+            distance > page.rect.width * 0.35
+            and count1 > 5
+            and count2 > 5
+        ):
             return True
+
     return False
 
 def check_ats_compliance(file_bytes, file_type: str):
-    """Check resume file for ATS-unfriendly formatting."""
+    """
+    Check ATS-unfriendly formatting.
+    """
     results = {
         "multi_column": False,
         "non_standard_fonts": False,
         "images": False,
         "tables": False
     }
-    bad_fonts = {"Comic Sans", "Papyrus", "Brush Script", "Cursive", "Monotype Corsiva"}
+
+    bad_fonts = {
+        "Comic Sans",
+        "Papyrus",
+        "Brush Script",
+        "Cursive",
+        "Monotype Corsiva"
+    }
 
     try:
         if file_type == "pdf":
-            doc = fitz.open(stream=file_bytes, filetype="pdf")
+            doc = fitz.open(
+                stream=file_bytes,
+                filetype="pdf"
+            )
             for page in doc:
-                # Images
+                # Detect images
                 for img in page.get_images(full=True):
                     xref = img[0]
                     pix = fitz.Pixmap(doc, xref)
-                    if pix.n >= 3 and pix.width > 100 and pix.height > 100:
-                        results["images"] = True; break
-                # Fonts
+                    if (
+                        pix.n >= 3
+                        and pix.width > 100
+                        and pix.height > 100
+                    ):
+                        results["images"] = True
+                        break
+                # Detect non-standard fonts
                 for f in page.get_fonts():
                     font_name = _normalize_font_name(f[3])
-                    if any(bad.lower() in font_name.lower() for bad in bad_fonts):
-                        results["non_standard_fonts"] = True; break
-                # Columns
+                    if any(
+                        bad.lower() in font_name.lower()
+                        for bad in bad_fonts
+                    ):
+                        results["non_standard_fonts"] = True
+                        break
+                # Detect multiple columns
                 if _detect_multi_column(page):
                     results["multi_column"] = True
-                if any(results.values()): break
+                if any(results.values()):
+                    break
             doc.close()
 
         elif file_type == "docx":
-            doc = docx.Document(io.BytesIO(file_bytes))
-            if len(doc.tables) > 0: results["tables"] = True
-            if len(doc.inline_shapes) > 0: results["images"] = True
-            if len(doc.sections) > 1 and doc.sections[0].start_type != 2:
+            doc = docx.Document(
+                io.BytesIO(file_bytes)
+            )
+            if len(doc.tables) > 0:
+                results["tables"] = True
+            if len(doc.inline_shapes) > 0:
+                results["images"] = True
+            if (
+                len(doc.sections) > 1
+                and doc.sections[0].start_type != 2
+            ):
                 results["multi_column"] = True
+
             for para in doc.paragraphs:
                 for run in para.runs:
-                    if run.font.name and any(bad.lower() in run.font.name.lower() for bad in bad_fonts):
-                        results["non_standard_fonts"] = True; break
-                if results["non_standard_fonts"]: break
-
+                    if (
+                        run.font.name
+                        and any(
+                            bad.lower() in run.font.name.lower()
+                            for bad in bad_fonts
+                        )
+                    ):
+                        results["non_standard_fonts"] = True
+                        break
+                if results["non_standard_fonts"]:
+                    break
     except Exception as e:
         results["error"] = str(e)
-
     return results
