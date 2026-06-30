@@ -5,46 +5,72 @@ const AIFeedback = ({ ai_raw }) => {
 
   const lines = ai_raw
     .split("\n")
-    .map(line => line.trim())
+    .map((line) => line.trim())
     .filter(Boolean);
 
   return (
     <div className="ai-feedback">
-      {lines.map((line, idx) => {
-        // Heuristic: treat short, capitalized lines as headings
-        const isHeading =
-          line.length < 60 &&
-          line === line.toUpperCase() ||
-          /^[A-Z][A-Za-z\s]+:$/.test(line);
 
-        // Heuristic: bullet points
-        const isBullet =
-          line.startsWith("-") ||
-          line.startsWith("•") ||
-          line.startsWith("*");
+      <div className="ai-report-header">
+        <div className="ai-badge">AI Report</div>
 
-        if (isHeading) {
+        <h3 className="ai-report-title">
+          Resume Analysis & Recommendations
+        </h3>
+
+        <p className="ai-report-subtitle">
+          AI-generated insights based on your resume and the selected job description.
+        </p>
+      </div>
+
+      <div className="ai-report-content">
+
+        {lines.map((line, idx) => {
+
+          const isHeading =
+            (line.length < 60 && line === line.toUpperCase()) ||
+            /^[A-Z][A-Za-z\s]+:$/.test(line);
+
+          const isBullet =
+            line.startsWith("-") ||
+            line.startsWith("•") ||
+            line.startsWith("*");
+
+          if (isHeading) {
+            return (
+              <div className="ai-section" key={idx}>
+                <h4 className="ai-heading">
+                  {line.replace(":", "")}
+                </h4>
+              </div>
+            );
+          }
+
+          if (isBullet) {
+            return (
+              <div className="ai-bullet" key={idx}>
+                <span className="bullet-dot"></span>
+
+                <span className="bullet-text">
+                  {line.replace(/^[-•*]\s*/, "")}
+                </span>
+              </div>
+            );
+          }
+
           return (
-            <h4 key={idx} className="ai-heading">
-              {line.replace(":", "")}
-            </h4>
+            <p
+              key={idx}
+              className="ai-paragraph"
+            >
+              {line}
+            </p>
           );
-        }
 
-        if (isBullet) {
-          return (
-            <li key={idx} className="ai-bullet">
-              {line.replace(/^[-•*]\s*/, "")}
-            </li>
-          );
-        }
+        })}
 
-        return (
-          <p key={idx} className="ai-paragraph">
-            {line}
-          </p>
-        );
-      })}
+      </div>
+
     </div>
   );
 };

@@ -1,4 +1,5 @@
 import React from "react";
+import { FiCheckCircle, FiAlertTriangle } from "react-icons/fi";
 
 const atsRules = {
   multi_column: {
@@ -56,7 +57,7 @@ const ATSCompliance = ({ ats_compliance }) => {
             className={`ats-card ${hasIssue ? "ats-issue" : "ats-ok"}`}
           >
             <div className="ats-icon">
-              {hasIssue ? "⚠️" : "✅"}
+              {hasIssue ? <FiAlertTriangle /> : <FiCheckCircle />}
             </div>
 
             <div className="ats-text">

@@ -54,14 +54,14 @@ const KeywordGapAnalysis = ({
 
       {/* 🔴 Missing Skills */}
       <section className="kg-section">
-        <h3>🚨 Skills You Should Add</h3>
+        <h3>Skills You Should Add</h3>
         <p className="kg-hint">
           These skills are required in the job description but missing from your resume.
         </p>
 
         {missing_skills.length === 0 ? (
           <div className="success-box">
-            🎉 Great job! No missing skills detected.
+            Great! Your resume already covers all required skills.
           </div>
         ) : (
           <div className="missing-grid">
@@ -174,7 +174,7 @@ const KeywordGapAnalysis = ({
       </section> */}
 
       <section className="kg-section">
-        <h3>✅ Matching Skills</h3>
+        <h3>Matching Skills</h3>
 
         <div className="skill-chip-group">
           {matched_skills.length > 0 ? (
@@ -195,7 +195,7 @@ const KeywordGapAnalysis = ({
 
       {/* ℹ️ Additional Skills (LIMITED) */}
       <section className="kg-section">
-        <h3>ℹ️ Additional Skills</h3>
+        <h3>Additional Skills</h3>
         <p className="kg-hint">
           These skills are present in your resume but not required for this job.
         </p>

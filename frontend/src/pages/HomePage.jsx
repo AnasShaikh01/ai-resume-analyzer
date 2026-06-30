@@ -1,4 +1,5 @@
 // src/pages/HomePage.jsx
+
 import React from "react";
 import AnalysisForm from "../components/AnalysisForm";
 import Features from "../components/Features";
@@ -10,80 +11,169 @@ const HomePage = () => {
   return (
     <div className="homepage">
 
-      {/* HERO SECTION */}
+      {/* ================= HERO ================= */}
       <section className="hero-section">
 
-        {/* Eyebrow / Context (Reference style) */}
-        <p className="hero-eyebrow">
-          AI Resume Analyzer
-        </p>
+        <div className="hero-pattern"></div>
+        <div className="hero-glow hero-glow-left"></div>
+        <div className="hero-glow hero-glow-right"></div>
 
-        {/* Main Headline */}
-        <h1 className="hero-title">
-          Optimize Your Resume with <span>AI-Powered Insights</span>
-        </h1>
+        <div className="hero-container">
 
-        {/* Supporting Subheadline */}
-        <p className="hero-subtitle">
-          Upload your resume and compare it against multiple job descriptions
-          to receive ATS scores, keyword insights, and improvement suggestions.
-        </p>
+          <div className="hero-header">
 
-        {/* FORM + HOW IT WORKS */}
-        <div className="form-info-row">
+            <div className="hero-badge">
+              AI Resume Analyzer
+            </div>
 
-          {/* LEFT → FORM */}
-          <div className="upload-card">
-            <AnalysisForm />
+            <h1 className="hero-title">
+              Build a Resume That Gets
+              <span> More Interviews</span>
+            </h1>
+
+            <p className="hero-subtitle">
+              Instantly analyze your resume using AI, compare it against
+              multiple job descriptions, improve ATS compatibility,
+              identify missing skills, and receive actionable recommendations
+              to maximize your chances of getting shortlisted.
+            </p>
+
           </div>
 
-          {/* RIGHT → HOW IT WORKS */}
-          <div className="info-card">
-            <h2 className="info-title">How It Works</h2>
+          <div className="form-info-row">
 
-            <div className="info-step">
-              <h3 className="step-title">1. Upload Your Resume</h3>
-              <p className="step-text">
-                Upload your resume in PDF or DOCX format. Maximum file size is 10MB.
-              </p>
+            {/* LEFT */}
+
+            <div className="upload-card">
+
+              <div className="panel-header">
+
+                <div>
+                  <h2>Resume Analysis</h2>
+                  <p>
+                    Upload your resume and start your AI-powered analysis.
+                  </p>
+                </div>
+
+                <div className="panel-status">
+                  Ready
+                </div>
+
+              </div>
+
+              <AnalysisForm />
+
             </div>
 
-            <div className="info-step">
-              <h3 className="step-title">2. Add Job Descriptions (Optional)</h3>
-              <p className="step-text">
-                Paste one or multiple job descriptions to get role-specific insights.
-              </p>
+            {/* RIGHT */}
+
+            <div className="info-card">
+
+              <div className="steps-header">
+
+                <h2>How It Works</h2>
+
+                <p>
+                  Three simple steps to optimize your resume.
+                </p>
+
+              </div>
+
+              <div className="steps">
+
+                <div className="step">
+
+                  <div className="step-number">
+                    01
+                  </div>
+
+                  <div className="step-content">
+
+                    <h3>Upload Resume</h3>
+
+                    <p>
+                      Upload your resume in PDF or DOCX format.
+                      Our parser extracts every important detail.
+                    </p>
+
+                  </div>
+
+                </div>
+
+                <div className="step">
+
+                  <div className="step-number">
+                    02
+                  </div>
+
+                  <div className="step-content">
+
+                    <h3>Add Job Description</h3>
+
+                    <p>
+                      Compare against one or multiple job descriptions
+                      for targeted ATS optimization.
+                    </p>
+
+                  </div>
+
+                </div>
+
+                <div className="step">
+
+                  <div className="step-number">
+                    03
+                  </div>
+
+                  <div className="step-content">
+
+                    <h3>Get AI Insights</h3>
+
+                    <p>
+                      Receive ATS score, missing skills,
+                      keyword analysis and improvement suggestions.
+                    </p>
+
+                  </div>
+
+                </div>
+
+              </div>
+
             </div>
 
-            <div className="info-step">
-              <h3 className="step-title">3. Get Instant Analysis</h3>
-              <p className="step-text">
-                Our AI analyzes your resume and provides:
-              </p>
-
-              <ul className="bullet-list">
-                <li>Content and formatting improvements</li>
-                <li>Key skills extracted from resume & JD</li>
-                <li>ATS optimization suggestions</li>
-                <li>Job description alignment score</li>
-                <li>Missing keywords & improvement areas</li>
-              </ul>
-            </div>
           </div>
 
         </div>
+
       </section>
 
-      {/* FEATURES */}
-      <section className="hero-to-features-spacing">
-        <Features />
+      {/* ================= FEATURES ================= */}
+
+      <section className="section">
+
+        <div className="container">
+
+          <Features />
+
+        </div>
+
       </section>
 
-      {/* ANALYSIS OUTCOME (NEW SPACING WRAPPER) */}
-      <section className="features-to-outcome-spacing">
-        <AnalysisOutcome />
+      {/* ================= ANALYSIS OUTCOME ================= */}
+
+      <section className="section outcome-section">
+
+        <div className="container">
+
+          <AnalysisOutcome />
+
+        </div>
+
       </section>
+
       <Footer />
+
     </div>
   );
 };
